@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LUTXTYZ INVICTUS</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Courier New', monospace;
+      background-color: #0a0a0a;
+      color: #ff2a6d;
+      text-align: center;
+    }
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      background: #1a0000;
+      border-radius: 20px;
+      padding: 30px 20px;
+      box-shadow: 0 0 20px #ff0055;
+    }
+    .logo {
+      width: 150px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .status {
+      color: #00ff00;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 90%;
+      padding: 10px;
+      margin: 15px 0;
+      background: #330000;
+      border: none;
+      color: white;
+      border-radius: 10px;
+      outline: none;
+    }
+    .btn {
+      display: block;
+      background: #ff0033;
+      color: white;
+      padding: 10px;
+      margin: 10px auto;
+      border-radius: 10px;
+      border: none;
+      width: 90%;
+      box-shadow: 0 0 10px #ff0055;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .footer {
+      margin-top: 20px;
+      color: #aaa;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img src="https://i.postimg.cc/X7ShpdQd/file-000000000c8c6230a582bf84580ff764.png" alt="logo" class="logo">
+    <h1>WELCOME BRO DI<br>LUTXTYZ INVICTUS</h1>
+    <div class="status">● CONNECTED</div>
+    <input id="targetNumber" type="text" placeholder="Please input target number, example: 62xx">
+    <button class="btn" onclick="selectBug()">SELECT BUG</button>
+    <button class="btn" onclick="crashBetaDelete()">CRASH BETA DELETE</button>
+    <button class="btn" onclick="runInvisHard()">INVISIBLE IPHONE</button>
+    <button class="btn" onclick="runGhostSql()">BETA CRASH</button>
+    <button class="btn" onclick="runDelayInvisible()">DELAY INVISIBLE</button>
+    <div class="footer">Created by GutsSoloo | 22/07/25, 18:38</div>
+  </div>
+
+  <!-- Script imports -->
+  <script src="js/FuncInvisHard.js"></script>
+  <script src="js/FuncDelayByLikszei.js"></script>
+  <script src="js/GhostSqL.js"></script>
+  <script src="js/FC Relog By Annas.js"></script>
+
+  <!-- Function wrappers to connect buttons -->
+  <script>
+    function selectBug() {
+      alert("Select Bug clicked.");
+    }
+
+    function crashBetaDelete() {
+      alert("Crash Beta Delete clicked.");
+    }
+
+    function runInvisHard() {
+      if (typeof FuncInvisHard === 'function') {
+        FuncInvisHard(document.getElementById('targetNumber').value);
+      } else {
+        alert("FuncInvisHard not found.");
+      }
+    }
+
+    function runDelayInvisible() {
+      if (typeof FuncDelayByLikszei === 'function') {
+        FuncDelayByLikszei(document.getElementById('targetNumber').value);
+      } else {
+        alert("FuncDelayByLikszei not found.");
+      }
+    }
+
+    function runGhostSql() {
+      if (typeof GhostSqL === 'function') {
+        GhostSqL(document.getElementById('targetNumber').value);
+      } else {
+        alert("GhostSqL not found.");
+      }
+    }
+  </script>
+</body>
+</html>

